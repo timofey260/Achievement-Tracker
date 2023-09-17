@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>11</LangVersion>
+    <RainWorldDir>F:\Games\SteamLibrary\steamapps\common\Rain World</RainWorldDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +16,7 @@
     <ItemGroup>
       <Assets Include="$(ProjectDir)../assets/**/*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(Assets)" DestinationFiles="$(RainWorldDir)/RainWorld_Data/StreamingAssets/mods/$(ProjectName)/%(RecursiveDir)%(Filename)%(Extension)" />
+    <!--<Copy SourceFiles="@(Assets)" DestinationFiles="$(RainWorldDir)/RainWorld_Data/StreamingAssets/mods/$(ProjectName)/%(RecursiveDir)%(Filename)%(Extension)" />-->
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(RainWorldDir)/RainWorld_Data/StreamingAssets/mods/$(ProjectName)/plugins" />
   </Target>
 
