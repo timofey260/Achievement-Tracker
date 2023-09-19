@@ -1,0 +1,624 @@
+{
+  "frames": {
+    "graySpearmasterEnding.png": {
+      "frame": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "SpearmasterEnding.png": {
+      "frame": { "x": 258, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "HunterPayload.png": {
+      "frame": { "x": 0, "y": 258, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayPassageMartyr.png": {
+      "frame": { "x": 258, "y": 258, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "PassageMartyr.png": {
+      "frame": { "x": 516, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "SaintEnding.png": {
+      "frame": { "x": 516, "y": 258, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "graySaintEnding.png": {
+      "frame": { "x": 0, "y": 516, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayPassageMother.png": {
+      "frame": { "x": 258, "y": 516, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "PassageMother.png": {
+      "frame": { "x": 516, "y": 516, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "PassagePilgrim.png": {
+      "frame": { "x": 774, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayPassagePilgrim.png": {
+      "frame": { "x": 774, "y": 258, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayPassageNomad.png": {
+      "frame": { "x": 774, "y": 516, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "PassageNomad.png": {
+      "frame": { "x": 0, "y": 774, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayHunterWin.png": {
+      "frame": { "x": 258, "y": 774, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "HunterWin.png": {
+      "frame": { "x": 516, "y": 774, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayHunterPayload.png": {
+      "frame": { "x": 774, "y": 774, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayChallengeMode.png": {
+      "frame": { "x": 1032, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "ChallengeMode.png": {
+      "frame": { "x": 1032, "y": 258, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "Quests.png": {
+      "frame": { "x": 1032, "y": 516, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayArtificerEnding.png": {
+      "frame": { "x": 1032, "y": 774, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "ArtificerEnding.png": {
+      "frame": { "x": 0, "y": 1032, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayQuests.png": {
+      "frame": { "x": 258, "y": 1032, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayRivuletEnding.png": {
+      "frame": { "x": 516, "y": 1032, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "RivuletEnding.png": {
+      "frame": { "x": 774, "y": 1032, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayGourmandEnding.png": {
+      "frame": { "x": 1032, "y": 1032, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "GourmandEnding.png": {
+      "frame": { "x": 1290, "y": 0, "w": 256, "h": 256 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+      "sourceSize": { "w": 256, "h": 256 },
+      "pivot": { "x": 128, "y": 128 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 256, "h": 256 }
+    },
+    "grayAllGhostsEncountered.png": {
+      "frame": { "x": 1290, "y": 258, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "AllGhostsEncountered.png": {
+      "frame": { "x": 1356, "y": 258, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageChieftain.png": {
+      "frame": { "x": 1422, "y": 258, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageChieftain.png": {
+      "frame": { "x": 1290, "y": 324, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageSaint.png": {
+      "frame": { "x": 1356, "y": 324, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageSaint.png": {
+      "frame": { "x": 1422, "y": 324, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "MoonEncounterGood.png": {
+      "frame": { "x": 1290, "y": 390, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayMoonEncounterGood.png": {
+      "frame": { "x": 1356, "y": 390, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayMoonEncounterBad.png": {
+      "frame": { "x": 1422, "y": 390, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "MoonEncounterBad.png": {
+      "frame": { "x": 1290, "y": 456, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostSI.png": {
+      "frame": { "x": 1356, "y": 456, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostLF.png": {
+      "frame": { "x": 1422, "y": 456, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostUW.png": {
+      "frame": { "x": 1290, "y": 522, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostCC.png": {
+      "frame": { "x": 1356, "y": 522, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostSH.png": {
+      "frame": { "x": 1422, "y": 522, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "GhostSB.png": {
+      "frame": { "x": 1290, "y": 588, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPebblesEncounter.png": {
+      "frame": { "x": 1356, "y": 588, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PebblesEncounter.png": {
+      "frame": { "x": 1422, "y": 588, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayWin.png": {
+      "frame": { "x": 1290, "y": 654, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageSurvivor.png": {
+      "frame": { "x": 1356, "y": 654, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageSurvivor.png": {
+      "frame": { "x": 1422, "y": 654, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostUW.png": {
+      "frame": { "x": 1290, "y": 720, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostSI.png": {
+      "frame": { "x": 1356, "y": 720, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostSH.png": {
+      "frame": { "x": 1422, "y": 720, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostSB.png": {
+      "frame": { "x": 1290, "y": 786, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostLF.png": {
+      "frame": { "x": 1356, "y": 786, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayGhostCC.png": {
+      "frame": { "x": 1422, "y": 786, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageDragonSlayer.png": {
+      "frame": { "x": 1290, "y": 852, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageDragonSlayer.png": {
+      "frame": { "x": 1356, "y": 852, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageScholar.png": {
+      "frame": { "x": 1422, "y": 852, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageScholar.png": {
+      "frame": { "x": 1290, "y": 918, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "Win.png": {
+      "frame": { "x": 1356, "y": 918, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageTraveller.png": {
+      "frame": { "x": 1422, "y": 918, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageTraveller.png": {
+      "frame": { "x": 1290, "y": 984, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageHunter.png": {
+      "frame": { "x": 1356, "y": 984, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageHunter.png": {
+      "frame": { "x": 1422, "y": 984, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageFriend.png": {
+      "frame": { "x": 1290, "y": 1050, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageFriend.png": {
+      "frame": { "x": 1290, "y": 1116, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageMonk.png": {
+      "frame": { "x": 1290, "y": 1182, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageMonk.png": {
+      "frame": { "x": 1356, "y": 1050, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "grayPassageOutlaw.png": {
+      "frame": { "x": 1422, "y": 1050, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "PassageOutlaw.png": {
+      "frame": { "x": 1356, "y": 1116, "w": 64, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "pivot": { "x": 32, "y": 32 },
+      "9slicedFrame": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    }
+  },
+  "meta": {
+    "app": "atlasify https://github.com/soimy/atlasify#readme",
+    "version": "0.4.1",
+    "image": "wholesprite.png",
+    "format": "RGBA8888",
+    "size": { "w": 1546, "h": 1288 },
+    "scale": 1
+  }
+}

@@ -20,6 +20,7 @@ sealed class Plugin : BaseUnityPlugin
 {
 	public static List<RainWorld.AchievementID> achievements;
 	public static bool loadError;
+	public static AchievementHud hud;
 
 	public void OnEnable()
 	{
@@ -37,36 +38,48 @@ sealed class Plugin : BaseUnityPlugin
 		 
 		 */
 		On.RainWorld.OnModsInit += OnModsInit;
-		On.HUD.HUD.InitSinglePlayerHud += HUD_InitSinglePlayerHud;
+		On.ProcessManager.CueAchievement += ProcessManager_CueAchievement;
+		On.ProcessManager.Update += ProcessManager_Update;
+		On.ProcessManager.PostSwitchMainProcess += ProcessManager_PostSwitchMainProcess;
 
 		On.RainWorld.AchievementAlreadyDisplayed += RainWorld_AchievementAlreadyDisplayed;
 	}
 
-	private void HUD_InitSinglePlayerHud(On.HUD.HUD.orig_InitSinglePlayerHud orig, HUD.HUD self, RoomCamera cam)
+	private void ProcessManager_PostSwitchMainProcess(On.ProcessManager.orig_PostSwitchMainProcess orig, ProcessManager self, ProcessManager.ProcessID ID)
 	{
-		orig(self, cam);
-		self.AddPart(new AchievementHud(self));
+		orig(self, ID);
+		Debug.Log(ID.ToString());
+		Debug.Log("tis info");
+		if (ID != ProcessManager.ProcessID.Initialization && ID != ProcessManager.ProcessID.IntroRoll && ID != ProcessManager.ProcessID.MainMenu)
+		{
+			hud = new(self);
+		}
 	}
 
-	private void Player_ThrownSpear(On.Player.orig_ThrownSpear orig, Player self, Spear spear)
+	private void ProcessManager_Update(On.ProcessManager.orig_Update orig, ProcessManager self, float deltaTime)
 	{
-		self.room.game.rainWorld.processManager.mySteamManager.ClearAchievement(RainWorld.AchievementID.HunterPayload.ToString());
+		orig(self, deltaTime);
+		if (hud != null)
+		{
+			hud.Update();
+			hud.GrafUpdate(deltaTime);
+		}
+	}
+
+	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, RainWorld.AchievementID ID, float delay)
+	{
+		orig(self, ID, delay);
 	}
 
 	private bool RainWorld_AchievementAlreadyDisplayed(On.RainWorld.orig_AchievementAlreadyDisplayed orig, RainWorld self, RainWorld.AchievementID ID)
 	{
-		return false;
-	}
-
-	private void Player_Jump(On.Player.orig_Jump orig, Player self)
-	{
-		self.room.game.rainWorld.PingAchievement(RainWorld.AchievementID.HunterPayload);
-		orig(self);
+		return achievements.Contains(ID);
 	}
 
 	private void OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
 	{
 		orig(self);
+		Futile.atlasManager.LoadAtlas("atlases/allachievements");
 		achievements = new();
 		string path = Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
 		{
@@ -128,10 +141,10 @@ sealed class Plugin : BaseUnityPlugin
 			"ahievementsTracker.txt"
 		}).ToLowerInvariant();
 		string[] text = new string[achievements.Count];
-        for (int i = 0; i < achievements.Count; i++)
-        {
+		for (int i = 0; i < achievements.Count; i++)
+		{
 			text[i] = achievements[i].ToString();
-        }
-        File.WriteAllLines(path, text);
+		}
+		File.WriteAllLines(path, text);
 	}
 }

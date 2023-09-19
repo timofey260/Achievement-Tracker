@@ -4,21 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HUD;
-using Menu.Remix.MixedUI;
+using Menu;
+using UnityEngine;
 
 namespace AchievementTracker
 {
-	internal class AchievementHud : HudPart
+	internal class AchievementHud : Menu.Menu
 	{
-		public DyeableRect rect;
-		public AchievementHud(HUD.HUD hud) : base(hud)
+		public RoundedRect rect;
+		public FSprite sprite;
+		public static readonly ProcessManager.ProcessID AchievementMenu = new("AchievementMenu", true);
+
+		public float hudsize;
+
+		public AchievementHud(ProcessManager manager) : base(manager, AchievementMenu)
 		{
-			rect = new(hud.fContainers[1], new(10, 10), new(200, 200));
+			pages.Add(new Page(this, null, "tracker", 0));
+			hudsize = manager.rainWorld.screenSize.x / 4f;
+			rect = new(this, pages[0], new(manager.rainWorld.screenSize.x - hudsize, 0), new(hudsize, manager.rainWorld.screenSize.y), true);
+			pages[0].subObjects.Add(rect);
+			
+			sprite = new("GhostSB");
+			sprite.SetPosition(rect.pos);
+			sprite.scale = 3f;
+			sprite.SetAnchor(new(0, 0));
+			pages[0].Container.AddChild(sprite);
 		}
 
-		public override void Draw(float timeStacker)
+		public override void GrafUpdate(float timeStacker)
 		{
-			base.Draw(timeStacker);
+			base.GrafUpdate(timeStacker);
 			rect.GrafUpdate(timeStacker);
 		}
 
@@ -27,9 +42,9 @@ namespace AchievementTracker
 			base.Update();
 			rect.Update();
 		}
-		public override void ClearSprites()
+		public override void ShutDownProcess()
 		{
-			base.ClearSprites();
+			base.ShutDownProcess();
 			if (rect != null)
 			{
 				for (int i = 0; i < rect.sprites.Length; i++)
