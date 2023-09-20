@@ -3,6 +3,7 @@ using RWCustom;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Permissions;
 using UnityEngine;
 using static System.Net.Mime.MediaTypeNames;
@@ -21,6 +22,16 @@ sealed class Plugin : BaseUnityPlugin
 	public static List<RainWorld.AchievementID> achievements;
 	public static bool loadError;
 	public static AchievementHud hud;
+	public static readonly ProcessManager.ProcessID[] processids =
+	{
+		ProcessManager.ProcessID.Game,
+		ProcessManager.ProcessID.DeathScreen,
+		ProcessManager.ProcessID.StarveScreen,
+		ProcessManager.ProcessID.Statistics,
+		ProcessManager.ProcessID.FastTravelScreen,
+		ProcessManager.ProcessID.PauseMenu,
+		ProcessManager.ProcessID.SleepScreen
+	};
 
 	public void OnEnable()
 	{
@@ -50,10 +61,13 @@ sealed class Plugin : BaseUnityPlugin
 		orig(self, ID);
 		Debug.Log(ID.ToString());
 		Debug.Log("tis info");
-		if (ID != ProcessManager.ProcessID.Initialization && ID != ProcessManager.ProcessID.IntroRoll && ID != ProcessManager.ProcessID.MainMenu)
+		if (processids.Contains(ID))
 		{
+			if (hud != null) { hud = new(self, hud); return; }
+			hud = null;
 			hud = new(self);
 		}
+		Debug.Log("done");
 	}
 
 	private void ProcessManager_Update(On.ProcessManager.orig_Update orig, ProcessManager self, float deltaTime)
