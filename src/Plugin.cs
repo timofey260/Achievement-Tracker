@@ -66,8 +66,10 @@ sealed class Plugin : BaseUnityPlugin
 			if (hud != null) { hud = new(self, hud); return; }
 			hud = null;
 			hud = new(self);
+		} else
+		{
+			hud = null;
 		}
-		Debug.Log("done");
 	}
 
 	private void ProcessManager_Update(On.ProcessManager.orig_Update orig, ProcessManager self, float deltaTime)
@@ -83,6 +85,8 @@ sealed class Plugin : BaseUnityPlugin
 	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, RainWorld.AchievementID ID, float delay)
 	{
 		orig(self, ID, delay);
+		hud?.AddAchievement(ID);
+		SaveAchievements();
 	}
 
 	private bool RainWorld_AchievementAlreadyDisplayed(On.RainWorld.orig_AchievementAlreadyDisplayed orig, RainWorld self, RainWorld.AchievementID ID)

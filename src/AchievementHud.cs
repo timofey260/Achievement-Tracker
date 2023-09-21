@@ -1,7 +1,7 @@
 ﻿using Menu;
 using System.Collections.Generic;
-using AchievementTracker;
 using UnityEngine;
+using System.Linq;
 
 namespace AchievementTracker
 {
@@ -15,6 +15,18 @@ namespace AchievementTracker
 
 		public float hudsize;
 
+		public Vector2 NewAchievementpos
+		{
+			get
+			{
+				if (displays.Count > 0)
+				{
+					return displays.Last().spawnpos - new Vector2(0, AchievementDisplay.achivementheight + AchievementDisplay.sizedecrease);
+				}
+				return rect.pos + new Vector2(0, rect.size.y - AchievementDisplay.achivementheight);
+			}
+		}
+
 		public AchievementHud(ProcessManager manager) : base(manager, AchievementMenu)
 		{
 			displays = new List<AchievementDisplay>();
@@ -22,12 +34,20 @@ namespace AchievementTracker
 			hudsize = manager.rainWorld.screenSize.x / 4f;
 			rect = new(this, pages[0], new(manager.rainWorld.screenSize.x - hudsize, 0), new(hudsize, manager.rainWorld.screenSize.y), true) { };
 			pages[0].subObjects.Add(rect);
-			displays.Add(new(this, RainWorld.AchievementID.PassageSurvivor));
+			//displays.Add(new(this, RainWorld.AchievementID.PassageFriend));
 
 		}
 		public AchievementHud(ProcessManager manager, AchievementHud hud) : this(manager)
 		{
-			displays = hud.displays;
+			foreach (var display in hud.displays)
+			{
+				AddAchievement(display.achievementID);
+			}
+		}
+
+		public void AddAchievement(RainWorld.AchievementID achievementID)
+		{
+			displays.Add(new AchievementDisplay(this, achievementID));
 		}
 
 		public override void GrafUpdate(float timeStacker)

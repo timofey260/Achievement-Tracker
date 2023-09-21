@@ -14,11 +14,12 @@ namespace AchievementTracker
 		public const float sizedecrease = 10;
 		public const float achivementheight = 100;
 
-		public readonly AchievementHud achievementHud;
+		public AchievementHud achievementHud;
 		public RainWorld.AchievementID achievementID;
 
 		public Vector2 size;
 		public Vector2 pos;
+		public Vector2 spawnpos;
 
 		public FSprite image;
 		public RoundedRect rect;
@@ -33,20 +34,24 @@ namespace AchievementTracker
 		public FContainer Container { get { return achievementHud.pages[0].Container; } }
 		public Page Page { get { return achievementHud.pages[0] ; } }
 
-		public AchievementDisplay(AchievementHud hud)
+		public AchievementDisplay(AchievementHud hud, RainWorld.AchievementID id)
 		{
 			achievementHud = hud;
 
-			text = "";
+			text = id.ToString();
+			achievementID = id;
 			delete = false;
 			lifespan = 0;
 			size = new(achievementHud.hudsize - sizedecrease, achivementheight);
-			pos = hud.rect.pos;
+			spawnpos = hud.NewAchievementpos;
+			Debug.Log("tis data");
+			Debug.Log(spawnpos);
+			pos = spawnpos;
 			pos.x += sizedecrease / 2f;
-			pos.y = hud.rect.size.y - achivementheight - sizedecrease;
+			pos.y -= sizedecrease / 2f;
 
 			rect = new(achievementHud, Page, pos, size, false);
-			image = new FSprite("GhostSB")
+			image = new FSprite(id.ToString())
 			{
 				width = 90,
 				height = 90
@@ -55,16 +60,10 @@ namespace AchievementTracker
 			label = new(Custom.GetFont(), text) { alignment = FLabelAlignment.Left };
 			AddToContainer();
 		}
-		public AchievementDisplay(AchievementHud hud, RainWorld.AchievementID id) : this(hud)
-		{
-			achievementID = id;
-			image.element = Futile.atlasManager.GetElementWithName(id.ToString());
-			text = id.ToString();
-			label.text = text;
-		}
 
 		public virtual void DrawSprites()
 		{
+			Page.subObjects.Add(rect);
 			image.SetPosition(pos + new Vector2(5, rect.size.y / 2f));
 			label.SetPosition(image.GetPosition() + new Vector2(image.width, 0));
 		}
