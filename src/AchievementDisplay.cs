@@ -44,8 +44,6 @@ namespace AchievementTracker
 			lifespan = 0;
 			size = new(achievementHud.hudsize - sizedecrease, achivementheight);
 			spawnpos = hud.NewAchievementpos;
-			Debug.Log("tis data");
-			Debug.Log(spawnpos);
 			pos = spawnpos;
 			pos.x += sizedecrease / 2f;
 			pos.y -= sizedecrease / 2f;
