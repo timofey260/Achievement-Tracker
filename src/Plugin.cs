@@ -1,12 +1,16 @@
 ﻿using BepInEx;
+using Kittehface.Framework20;
 using RWCustom;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using UnityEngine;
 using static System.Net.Mime.MediaTypeNames;
+using Achid = RainWorld.AchievementID;
+using Procid = ProcessManager.ProcessID;
 //using Kittehface.Framework20;
 
 // Allows access to private members
@@ -19,19 +23,29 @@ namespace AchievementTracker;
 [BepInPlugin("timofey26.achievementtracker", "Achievement Tracker", "0.1.0")]
 sealed class Plugin : BaseUnityPlugin
 {
-	public static List<RainWorld.AchievementID> achievements;
+	public static List<Achid> achievements;
 	public static bool loadError;
 	public static AchievementHud hud;
-	public static readonly ProcessManager.ProcessID[] processids =
+	public static TrackerOptions options;
+	public static readonly Procid[] processids =
 	{
-		ProcessManager.ProcessID.Game,
-		ProcessManager.ProcessID.DeathScreen,
-		ProcessManager.ProcessID.StarveScreen,
-		ProcessManager.ProcessID.Statistics,
-		ProcessManager.ProcessID.FastTravelScreen,
-		ProcessManager.ProcessID.PauseMenu,
-		ProcessManager.ProcessID.SleepScreen
+		Procid.Game,
+		Procid.DeathScreen,
+		Procid.StarveScreen,
+		Procid.Statistics,
+		Procid.FastTravelScreen,
+		Procid.PauseMenu,
+		Procid.SleepScreen,
+		Procid.KarmaToMaxScreen,
+
 	};
+
+	public Plugin()
+	{
+		options = new TrackerOptions(this);
+	}
+
+	public static Achid GiveRandomAchievement() { return RXRandom.AnyItem(AchievementDisplay.achievementdata.Keys.ToArray()); }
 
 	public void OnEnable()
 	{
@@ -49,6 +63,7 @@ sealed class Plugin : BaseUnityPlugin
 		 
 		 */
 		On.RainWorld.OnModsInit += OnModsInit;
+		On.Player.Jump += Player_Jump;
 		On.ProcessManager.CueAchievement += ProcessManager_CueAchievement;
 		On.ProcessManager.Update += ProcessManager_Update;
 		On.ProcessManager.PostSwitchMainProcess += ProcessManager_PostSwitchMainProcess;
@@ -56,7 +71,14 @@ sealed class Plugin : BaseUnityPlugin
 		On.RainWorld.AchievementAlreadyDisplayed += RainWorld_AchievementAlreadyDisplayed;
 	}
 
-	private void ProcessManager_PostSwitchMainProcess(On.ProcessManager.orig_PostSwitchMainProcess orig, ProcessManager self, ProcessManager.ProcessID ID)
+	private void Player_Jump(On.Player.orig_Jump orig, Player self)
+	{
+		hud.AddAchievement(GiveRandomAchievement());
+		Debug.Log("yeah");
+		orig(self);
+	}
+
+	private void ProcessManager_PostSwitchMainProcess(On.ProcessManager.orig_PostSwitchMainProcess orig, ProcessManager self, Procid ID)
 	{
 		orig(self, ID);
 		Debug.Log(ID.ToString());
@@ -82,14 +104,14 @@ sealed class Plugin : BaseUnityPlugin
 		}
 	}
 
-	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, RainWorld.AchievementID ID, float delay)
+	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, Achid ID, float delay)
 	{
 		orig(self, ID, delay);
 		hud?.AddAchievement(ID);
 		SaveAchievements();
 	}
 
-	private bool RainWorld_AchievementAlreadyDisplayed(On.RainWorld.orig_AchievementAlreadyDisplayed orig, RainWorld self, RainWorld.AchievementID ID)
+	private bool RainWorld_AchievementAlreadyDisplayed(On.RainWorld.orig_AchievementAlreadyDisplayed orig, RainWorld self, Achid ID)
 	{
 		return achievements.Contains(ID);
 	}
@@ -99,6 +121,18 @@ sealed class Plugin : BaseUnityPlugin
 		orig(self);
 		Futile.atlasManager.LoadAtlas("atlases/allachievements");
 		achievements = new();
+		try
+		{
+			MachineConnector.SetRegisteredOI("timofey26.achievementtracker", options);
+		}
+		catch (Exception ex)
+		{
+			Debug.LogError("I really fucked up");
+			/* make sure to error-proof your hook, 
+			otherwise the game may break 
+			in a hard-to-track way
+			and other mods may stop working */
+		}
 		string path = Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
 		{
 			Path.DirectorySeparatorChar.ToString(),
@@ -123,7 +157,7 @@ sealed class Plugin : BaseUnityPlugin
 				{
 					try
 					{
-						achievements.Add((RainWorld.AchievementID)Enum.Parse(typeof(RainWorld.AchievementID), lines[i].Trim()));
+						achievements.Add((Achid)Enum.Parse(typeof(Achid), lines[i].Trim()));
 					} catch (ArgumentException)
 					{
 

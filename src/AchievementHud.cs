@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static RainWorld;
 
 namespace AchievementTracker
 {
@@ -21,7 +22,7 @@ namespace AchievementTracker
 			{
 				if (displays.Count > 0)
 				{
-					return displays.Last().spawnpos - new Vector2(0, AchievementDisplay.achivementheight + AchievementDisplay.sizedecrease);
+					return displays.Last().spawnpos - new Vector2(0, AchievementDisplay.achivementheight + AchievementDisplay.sizedecreasehalf);
 				}
 				return rect.pos + new Vector2(0, rect.size.y - AchievementDisplay.achivementheight);
 			}
@@ -41,7 +42,7 @@ namespace AchievementTracker
 		{
 			foreach (var display in hud.displays)
 			{
-				AddAchievement(display.achievementID);
+				displays.Add(new AchievementDisplay(this, display.achievementID) { lifespan = display.lifespan });
 			}
 		}
 
