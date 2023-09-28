@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using Kittehface.Framework20;
+using Menu;
 using RWCustom;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ sealed class Plugin : BaseUnityPlugin
 	public static List<Achid> achievements;
 	public static bool loadError;
 	public static AchievementHud hud;
+	public static AchievementMenu menu;
 	public static TrackerOptions options;
 	public static readonly Procid[] processids =
 	{
@@ -68,18 +70,70 @@ sealed class Plugin : BaseUnityPlugin
 		On.ProcessManager.Update += ProcessManager_Update;
 		On.ProcessManager.PostSwitchMainProcess += ProcessManager_PostSwitchMainProcess;
 
+		On.Menu.PauseMenu.ctor += PauseMenu_ctor;
+		On.Menu.PauseMenu.WarpSignal += PauseMenu_WarpSignal;
+		On.Menu.MainMenu.ctor += MainMenu_ctor;
+		On.Menu.MainMenu.Singal += MainMenu_Singal;
+
 		On.RainWorld.AchievementAlreadyDisplayed += RainWorld_AchievementAlreadyDisplayed;
+	}
+
+	private void MainMenu_Singal(On.Menu.MainMenu.orig_Singal orig, MainMenu self, MenuObject sender, string message)
+	{
+		orig(self, sender, message);
+		if (message == "OPENMENU")
+		{
+			menu?.ShutDownProcess();
+			self.manager.RequestMainProcessSwitch(CustomIds.loop, .5f);
+			//self.ShutDownProcess();
+		}
+	}
+
+	private void MainMenu_ctor(On.Menu.MainMenu.orig_ctor orig, MainMenu self, ProcessManager manager, bool showRegionSpecificBkg)
+	{
+		orig(self, manager, showRegionSpecificBkg);
+		SimpleButton button = new(self, self.pages[0], "Achievements", "OPENMENU", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
+		self.pages[0].subObjects.Add(button);
+	}
+
+	private void PauseMenu_WarpSignal(On.Menu.PauseMenu.orig_WarpSignal orig, PauseMenu self, MenuObject sender, string message)
+	{
+		orig(self, sender, message);
+		if (message == "SHOWACHIEVEMENTS")
+		{
+			menu = new(self.manager, self);
+		}
+	}
+
+	private void PauseMenu_ctor(On.Menu.PauseMenu.orig_ctor orig, PauseMenu self, ProcessManager manager, RainWorldGame game)
+	{
+		orig(self, manager, game);
+		SimpleButton button = new(self, self.pages[0], "Achievements", "SHOWACHIEVEMENTS", Vector2.zero, new Vector2(110f, 30f));
+		self.pages[0].subObjects.Add(button);
+		for (int i = 0; i < self.pages[0].subObjects.Count; i++)
+		{
+			if (self.pages[0].subObjects[i] is SimpleButton)
+			{
+				self.pages[0].subObjects[i].nextSelectable[1] = button;
+				button.nextSelectable[3] = self.pages[0].subObjects[i];
+				button.pos = new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f));
+				break;
+			}
+		}
 	}
 
 	private void Player_Jump(On.Player.orig_Jump orig, Player self)
 	{
 		hud.AddAchievement(GiveRandomAchievement());
-		Debug.Log("yeah");
 		orig(self);
 	}
 
 	private void ProcessManager_PostSwitchMainProcess(On.ProcessManager.orig_PostSwitchMainProcess orig, ProcessManager self, Procid ID)
 	{
+		if (ID == CustomIds.loop)
+		{
+			self.currentMainLoop = new AchievementLoop(self);
+		}
 		orig(self, ID);
 		Debug.Log(ID.ToString());
 		Debug.Log("tis info");
@@ -102,6 +156,8 @@ sealed class Plugin : BaseUnityPlugin
 			hud.Update();
 			hud.GrafUpdate(deltaTime);
 		}
+		menu?.Update();
+		menu?.GrafUpdate(deltaTime);
 	}
 
 	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, Achid ID, float delay)
@@ -119,7 +175,9 @@ sealed class Plugin : BaseUnityPlugin
 	private void OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
 	{
 		orig(self);
+		CustomIds.Initialize();
 		Futile.atlasManager.LoadAtlas("atlases/allachievements");
+		Futile.atlasManager.LoadImage("atlases/god");
 		achievements = new();
 		try
 		{
@@ -128,10 +186,6 @@ sealed class Plugin : BaseUnityPlugin
 		catch (Exception ex)
 		{
 			Debug.LogError("I really fucked up");
-			/* make sure to error-proof your hook, 
-			otherwise the game may break 
-			in a hard-to-track way
-			and other mods may stop working */
 		}
 		string path = Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
 		{

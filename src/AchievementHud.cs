@@ -12,7 +12,6 @@ namespace AchievementTracker
 		public RoundedRect rect;
 
 		public List<AchievementDisplay> displays;
-		public static readonly ProcessManager.ProcessID AchievementMenu = new("AchievementMenu", true);
 
 		public float hudsize;
 
@@ -28,7 +27,7 @@ namespace AchievementTracker
 			}
 		}
 
-		public AchievementHud(ProcessManager manager) : base(manager, AchievementMenu)
+		public AchievementHud(ProcessManager manager) : base(manager, CustomIds.hud)
 		{
 			displays = new List<AchievementDisplay>();
 			pages.Add(new Page(this, null, "achtracker", 0));
