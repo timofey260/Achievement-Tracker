@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static RainWorld;
 
 namespace AchievementTracker
 {
-	internal class AchievementHud : Menu.Menu
+	internal class Hud : Menu.Menu
 	{
 		//drawables
 		public RoundedRect rect;
@@ -27,7 +26,7 @@ namespace AchievementTracker
 			}
 		}
 
-		public AchievementHud(ProcessManager manager) : base(manager, CustomIds.hud)
+		public Hud(ProcessManager manager) : base(manager, CustomIds.hud)
 		{
 			displays = new List<AchievementDisplay>();
 			pages.Add(new Page(this, null, "achtracker", 0));
@@ -37,7 +36,7 @@ namespace AchievementTracker
 			//displays.Add(new(this, RainWorld.AchievementID.PassageFriend));
 
 		}
-		public AchievementHud(ProcessManager manager, AchievementHud hud) : this(manager)
+		public Hud(ProcessManager manager, Hud hud) : this(manager)
 		{
 			foreach (var display in hud.displays)
 			{

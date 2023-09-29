@@ -12,15 +12,12 @@ namespace AchievementTracker
 {
 	internal class AchievementLoop : Menu.Menu
 	{
-		public AchievementMenu menu;
+		public AchMenu menu;
 		public SimpleButton backButton;
-		public RoundedRect roundedRect;
 		//public FSprite sily;
 		public AchievementLoop(ProcessManager manager) : base(manager, CustomIds.loop)
 		{
 			pages = new() { new(this, null, "", 0) };
-
-			roundedRect = new(this, pages[0], new Vector2(0, 0), new(500, 900), true);
 
 			//sily = new("atlases/god");
 			//sily.SetAnchor(0, 0);

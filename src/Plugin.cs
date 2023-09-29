@@ -9,7 +9,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
 using Achid = RainWorld.AchievementID;
 using Procid = ProcessManager.ProcessID;
 //using Kittehface.Framework20;
@@ -26,8 +25,8 @@ sealed class Plugin : BaseUnityPlugin
 {
 	public static List<Achid> achievements;
 	public static bool loadError;
-	public static AchievementHud hud;
-	public static AchievementMenu menu;
+	public static Hud hud;
+	public static AchMenu menu;
 	public static TrackerOptions options;
 	public static readonly Procid[] processids =
 	{

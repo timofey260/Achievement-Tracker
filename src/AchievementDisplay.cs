@@ -12,7 +12,7 @@ namespace AchievementTracker
 {
 	internal class AchievementDisplay
 	{
-		public static Dictionary<RainWorld.AchievementID, AchievementData> achievementdata = new Dictionary<RainWorld.AchievementID, AchievementData>
+		public static Dictionary<Achid, AchievementData> achievementdata = new()
 		{
 			{Achid.PassageSurvivor, new("The Survivor", "This land has become your home", false)},
 			{Achid.PassageHunter, new("The Hunter", "Path of the carnivore", false)},
@@ -53,7 +53,7 @@ namespace AchievementTracker
 		public const float sizedecreasehalf = 5;
 		public const float achivementheight = 100;
 
-		public AchievementHud achievementHud;
+		public Hud achievementHud;
 		public Achid achievementID;
 
 		public Vector2 size;
@@ -74,7 +74,7 @@ namespace AchievementTracker
 		public FContainer Container { get { return achievementHud.pages[0].Container; } }
 		public Page Page { get { return achievementHud.pages[0] ; } }
 
-		public AchievementDisplay(AchievementHud hud, Achid id)
+		public AchievementDisplay(Hud hud, Achid id)
 		{
 			achievementHud = hud;
 
