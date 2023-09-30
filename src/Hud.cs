@@ -40,13 +40,17 @@ namespace AchievementTracker
 		{
 			foreach (var display in hud.displays)
 			{
-				displays.Add(new AchievementDisplay(this, display.achievementID) { lifespan = display.lifespan });
+				AchievementDisplay Adisplay = new(this, pages[0], display.achievementID) { lifespan = display.lifespan };
+				displays.Add(Adisplay);
+				pages[0].subObjects.Add(Adisplay);
 			}
 		}
 
 		public void AddAchievement(RainWorld.AchievementID achievementID)
 		{
-			displays.Add(new AchievementDisplay(this, achievementID));
+			AchievementDisplay Adisplay = new(this, pages[0], achievementID);
+			displays.Add(Adisplay);
+			pages[0].subObjects.Add(Adisplay);
 		}
 
 		public override void GrafUpdate(float timeStacker)
@@ -57,10 +61,10 @@ namespace AchievementTracker
 			{
 				if (achievement.delete)
 				{
+					achievement.ClearSprites();
 					displays.Remove(achievement);
 					continue;
 				}
-				achievement.DrawSprites();
 			}
 		}
 
@@ -86,7 +90,7 @@ namespace AchievementTracker
 			rect ??= null;
 			foreach (AchievementDisplay achievement in displays)
 			{
-				achievement.ClearSprites();
+				achievement?.ClearSprites();
 			}
 		}
 	}

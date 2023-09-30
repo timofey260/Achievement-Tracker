@@ -23,8 +23,15 @@ namespace AchievementTracker
 			//sily.SetAnchor(0, 0);
 
 			menu = new(manager, this);
+			/*
 			backButton = new(this, pages[0], Translate("Back"), "BACK", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
-			pages[0].subObjects.Add(backButton);
+			backButton.nextSelectable[0] = menu.slider;
+			backButton.nextSelectable[2] = menu.slider;
+			backButton.nextSelectable[1] = menu.colorizeCheckbox;
+			backButton.nextSelectable[3] = menu.colorizeCheckbox;
+			backObject = backButton;
+			menu.backObject = backButton;*/
+			//pages[0].subObjects.Add(backButton);
 			//container.AddChild(sily);
 		}
 

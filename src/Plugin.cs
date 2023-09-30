@@ -46,7 +46,7 @@ sealed class Plugin : BaseUnityPlugin
 		options = new TrackerOptions(this);
 	}
 
-	public static Achid GiveRandomAchievement() { return RXRandom.AnyItem(AchievementDisplay.achievementdata.Keys.ToArray()); }
+	public static Achid GiveRandomAchievement() { return RXRandom.AnyItem(CustomIds.achievementdata.Keys.ToArray()); }
 
 	public void OnEnable()
 	{
@@ -84,15 +84,20 @@ sealed class Plugin : BaseUnityPlugin
 		{
 			menu?.ShutDownProcess();
 			self.manager.RequestMainProcessSwitch(CustomIds.loop, .5f);
-			//self.ShutDownProcess();
 		}
 	}
 
 	private void MainMenu_ctor(On.Menu.MainMenu.orig_ctor orig, MainMenu self, ProcessManager manager, bool showRegionSpecificBkg)
 	{
 		orig(self, manager, showRegionSpecificBkg);
-		SimpleButton button = new(self, self.pages[0], "Achievements", "OPENMENU", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
-		self.pages[0].subObjects.Add(button);
+		SimpleButton button = new(self, self.pages[0], "Achievements", "OPENMENU", new Vector2(manager.rainWorld.options.ScreenSize.x / 2f - 55f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
+
+		self.AddMainMenuButton(button, ToMenu, 0);
+	}
+
+	private void ToMenu()
+	{
+		
 	}
 
 	private void PauseMenu_WarpSignal(On.Menu.PauseMenu.orig_WarpSignal orig, PauseMenu self, MenuObject sender, string message)
@@ -100,25 +105,19 @@ sealed class Plugin : BaseUnityPlugin
 		orig(self, sender, message);
 		if (message == "SHOWACHIEVEMENTS")
 		{
-			menu = new(self.manager, self);
+			if (menu == null)
+			{
+				menu = new(self.manager, self);
+				self.manager.sideProcesses.Add(menu);
+			}
 		}
 	}
 
 	private void PauseMenu_ctor(On.Menu.PauseMenu.orig_ctor orig, PauseMenu self, ProcessManager manager, RainWorldGame game)
 	{
 		orig(self, manager, game);
-		SimpleButton button = new(self, self.pages[0], "Achievements", "SHOWACHIEVEMENTS", Vector2.zero, new Vector2(110f, 30f));
+		SimpleButton button = new(self, self.pages[0], "Achievements", "SHOWACHIEVEMENTS", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
 		self.pages[0].subObjects.Add(button);
-		for (int i = 0; i < self.pages[0].subObjects.Count; i++)
-		{
-			if (self.pages[0].subObjects[i] is SimpleButton)
-			{
-				self.pages[0].subObjects[i].nextSelectable[1] = button;
-				button.nextSelectable[3] = self.pages[0].subObjects[i];
-				button.pos = new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f));
-				break;
-			}
-		}
 	}
 
 	private void Player_Jump(On.Player.orig_Jump orig, Player self)
@@ -138,11 +137,18 @@ sealed class Plugin : BaseUnityPlugin
 		Debug.Log("tis info");
 		if (processids.Contains(ID))
 		{
-			if (hud != null) { hud = new(self, hud); return; }
-			hud = null;
+			if (hud != null)
+			{
+				Hud newhud = new(self, hud);
+				hud?.ShutDownProcess();
+				hud = newhud;
+				return;
+			}
+			hud?.ShutDownProcess();
 			hud = new(self);
 		} else
 		{
+			hud?.ShutDownProcess();
 			hud = null;
 		}
 	}
@@ -155,14 +161,25 @@ sealed class Plugin : BaseUnityPlugin
 			hud.Update();
 			hud.GrafUpdate(deltaTime);
 		}
-		menu?.Update();
-		menu?.GrafUpdate(deltaTime);
+		//menu?.Update();
+		//menu?.GrafUpdate(deltaTime);
+
+		if (menu != null && menu.delete)
+		{
+			menu = null;
+			self.sideProcesses.Remove(menu);
+		}
 	}
 
 	private void ProcessManager_CueAchievement(On.ProcessManager.orig_CueAchievement orig, ProcessManager self, Achid ID, float delay)
 	{
 		orig(self, ID, delay);
-		hud?.AddAchievement(ID);
+		if (!achievements.Contains(ID))
+		{
+			hud?.AddAchievement(ID);
+			achievements.Add(ID);
+		}
+		achievements = achievements.Distinct().ToList();
 		SaveAchievements();
 	}
 
