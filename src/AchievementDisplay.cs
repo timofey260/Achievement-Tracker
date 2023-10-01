@@ -38,7 +38,7 @@ namespace AchievementTracker
 		{
 			achievementHud = menu as Hud;
 
-			text = CustomIds.achievementdata[id].name;
+			text = achievementHud.Translate(CustomIds.achievementdata[id].name);
 			achievementID = id;
 			delete = false;
 			lifespan = 0;
@@ -56,7 +56,7 @@ namespace AchievementTracker
 			};
 			image.SetAnchor(new Vector2(0, .5f));
 			label = new(Custom.GetFont(), text) { alignment = FLabelAlignment.Left };
-			description = new(Custom.GetFont(), CustomIds.achievementdata[id].description) { alignment = FLabelAlignment.Left, color = Color.gray };
+			description = new(Custom.GetFont(), achievementHud.Translate(CustomIds.achievementdata[id].description)) { alignment = FLabelAlignment.Left, color = Color.gray };
 			Container.AddChild(image);
 			Container.AddChild(label);
 			Container.AddChild(description);
@@ -79,13 +79,22 @@ namespace AchievementTracker
 		{
 			lifespan++;
 			float anim = Mathf.Clamp(lifespan, 0f, 100f) / 100f;
-
+			pos.x = Custom.LerpBackEaseOut(spawnpos.x + 500, spawnpos.x, anim);
 			float alpha = Custom.LerpExpEaseOut(0f, 1f, anim);
+			if (lifespan > 200)
+			{
+				alpha = Mathf.Clamp(lifespan - 200, 0f, 40f) / 40f;
+				if (alpha >= 1f)
+				{
+					delete = true;
+				}
+				pos.x = Custom.LerpBackEaseOut(spawnpos.x, spawnpos.x + 500, alpha);
+				alpha = Custom.LerpExpEaseIn(spawnpos.x, spawnpos.x + 500, alpha);
+			}
 			rect.fillAlpha = alpha;
 			image.alpha = alpha;
 			label.alpha = alpha;
 			description.alpha = alpha;
-			pos.x = Custom.LerpBackEaseOut(spawnpos.x + 500, spawnpos.x, anim);
 		}
 
 		public virtual void ClearSprites()
@@ -93,11 +102,6 @@ namespace AchievementTracker
 			image?.RemoveFromContainer();
 			label?.RemoveFromContainer();
 			description?.RemoveFromContainer();
-		}
-
-		public void Destroy()
-		{
-			delete = true;
 		}
 	}
 }

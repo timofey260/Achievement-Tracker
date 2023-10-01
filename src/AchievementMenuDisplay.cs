@@ -16,11 +16,15 @@ namespace AchievementTracker
 
 		public readonly AchMenu achMenu;
 		private readonly Achid id;
-		private bool hidden;
 
 		public Vector2 spawnpos;
 		public Vector2 pos;
 		public int lifespan;
+		public bool deleteFromList;
+		public bool delete;
+		public int deletecount;
+		public bool colorize;
+		public Color lastcolor;
 
 		public AchievementMenuDisplay(Menu.Menu menu, MenuObject owner, Achid ID, bool hidden) : base(menu, owner)
 		{
@@ -28,20 +32,24 @@ namespace AchievementTracker
 			spawnpos = achMenu.NewAchievementpos;
 			pos = spawnpos;
 			lifespan = 0;
+			deletecount = 50;
+			delete = false;
+			deleteFromList = false;
+			colorize = Plugin.colorize;
+			lastcolor = Color.white;
 
 			rect = new(menu, owner, spawnpos, new(achMenu.roundedRect.size.x - 10, 100), true);
 			owner.subObjects.Add(rect);
 			id = ID;
-			this.hidden = hidden;
 			image = new FSprite((hidden ? "gray" : "") + id.ToString())
 			{
 				width = 90,
 				height = 90
 			};
-			string text = CustomIds.achievementdata[ID].name;
+			string text = achMenu.Translate(CustomIds.achievementdata[ID].name);
 			image.SetAnchor(new Vector2(0, .5f));
 			label = new(Custom.GetFont(), text) { alignment = FLabelAlignment.Left };
-			description = new(Custom.GetFont(), CustomIds.achievementdata[id].description) { alignment = FLabelAlignment.Left, color = Color.gray };
+			description = new(Custom.GetFont(), achMenu.Translate(CustomIds.achievementdata[id].description)) { alignment = FLabelAlignment.Left, color = Color.gray };
 			rect.Container.AddChild(label);
 			rect.Container.AddChild(description);
 			rect.Container.AddChild(image);
@@ -71,11 +79,29 @@ namespace AchievementTracker
 			else if (pos.y + rect.size.y > achMenu.manager.rainWorld.options.ScreenSize.y)
 			{
 				alphamul = -((pos.y - achMenu.manager.rainWorld.options.ScreenSize.y) / rect.size.y);
-				
 			}
 			alphamul = Custom.LerpCircEaseIn(0f, 1f, alphamul);
 			alpha *= alphamul;
+			alpha *= achMenu.shuttingcounter / 10f;
+			if (deleteFromList)
+			{
+				deletecount--;
+				if (deletecount <= 0)
+				{
+					delete = true;
+				}
+			}
+			alpha *= deletecount / 50f;
 			rect.fillAlpha = alpha;
+			Color bordercolor = Color.white;
+			if (colorize)
+			{
+				if (Plugin.achievements.Contains(id)) bordercolor = Color.green; else bordercolor = Color.red;
+				bordercolor = Color.Lerp(bordercolor, lastcolor, .5f);
+			}
+			Vector3 color = Custom.RGB2HSL(bordercolor);
+			rect.borderColor = new HSLColor(color.x, color.y, color.z);
+			lastcolor = bordercolor;
 			foreach (var item in rect.sprites)
 			{
 				item.alpha = alpha;
@@ -96,8 +122,9 @@ namespace AchievementTracker
 			pos = new Vector2(spawnpos.x, Custom.LerpCircEaseOut(spawnpos.y - 100, spawnpos.y, anim)) + achMenu.achoffset;
 		}
 
-		public virtual void ClearSprites()
+		public override void RemoveSprites()
 		{
+			base.RemoveSprites();
 			image?.RemoveFromContainer();
 			label?.RemoveFromContainer();
 			description?.RemoveFromContainer();

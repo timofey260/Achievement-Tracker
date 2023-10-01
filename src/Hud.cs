@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using RWCustom;
 
 namespace AchievementTracker
 {
@@ -13,6 +15,7 @@ namespace AchievementTracker
 		public List<AchievementDisplay> displays;
 
 		public float hudsize;
+		public int alpha;
 
 		public Vector2 NewAchievementpos
 		{
@@ -29,9 +32,10 @@ namespace AchievementTracker
 		public Hud(ProcessManager manager) : base(manager, CustomIds.hud)
 		{
 			displays = new List<AchievementDisplay>();
+			alpha = 0;
 			pages.Add(new Page(this, null, "achtracker", 0));
 			hudsize = manager.rainWorld.screenSize.x / 4f;
-			rect = new(this, pages[0], new(manager.rainWorld.screenSize.x - hudsize, 0), new(hudsize, manager.rainWorld.screenSize.y), true) { };
+			rect = new(this, pages[0], new(manager.rainWorld.screenSize.x - hudsize, 0), new(hudsize, manager.rainWorld.screenSize.y), true);
 			pages[0].subObjects.Add(rect);
 			//displays.Add(new(this, RainWorld.AchievementID.PassageFriend));
 
@@ -56,30 +60,34 @@ namespace AchievementTracker
 		public override void GrafUpdate(float timeStacker)
 		{
 			base.GrafUpdate(timeStacker);
-			rect.GrafUpdate(timeStacker);
+            foreach (var sprite in rect.sprites)
+            {
+				sprite.alpha = Custom.LerpQuadEaseOut(0f, 1f, alpha / 100f);
+            }
+        }
+
+		public override void Update()
+		{
+			base.Update();
+			if (displays.Count > 0)
+			{
+				alpha = Math.Min(alpha + 2, 100);
+			} else
+			{
+				alpha = Math.Max(alpha - 2, 0);
+			}
 			foreach (AchievementDisplay achievement in displays)
 			{
 				if (achievement.delete)
 				{
 					achievement.ClearSprites();
-					displays.Remove(achievement);
-					continue;
+					pages[0].RemoveSubObject(achievement);
 				}
 			}
-		}
-
-		public override void Update()
-		{
-			base.Update();
-			rect.Update();
-			foreach (AchievementDisplay achievement in displays)
-			{
-				achievement.Update();
-			}
+			displays.RemoveAll(match => match.delete);
 		}
 		public override void ShutDownProcess()
 		{
-			base.ShutDownProcess();
 			if (rect != null)
 			{
 				for (int i = 0; i < rect.sprites.Length; i++)
@@ -92,6 +100,7 @@ namespace AchievementTracker
 			{
 				achievement?.ClearSprites();
 			}
+			base.ShutDownProcess();
 		}
 	}
 }

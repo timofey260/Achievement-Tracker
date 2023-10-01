@@ -41,15 +41,32 @@ sealed class Plugin : BaseUnityPlugin
 
 	};
 
+	public static string Filepath { get { return Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
+		{
+			Path.DirectorySeparatorChar.ToString(),
+			"UserData",
+			Path.DirectorySeparatorChar.ToString(),
+			"ahievementsTracker.txt"
+		}).ToLowerInvariant(); } }
+
+	public static bool colorize;
+	public static bool ShowAchieved;
+	public static bool ShowHidden;
+	public static bool ShowUnAchieved;
+	public static bool sort;
+
 	public Plugin()
 	{
-		options = new TrackerOptions(this);
+		//options = new TrackerOptions(this);
 	}
-
-	public static Achid GiveRandomAchievement() { return RXRandom.AnyItem(CustomIds.achievementdata.Keys.ToArray()); }
 
 	public void OnEnable()
 	{
+		colorize = false;
+		ShowAchieved = true;
+		ShowUnAchieved = true;
+		ShowHidden = false;
+		sort = false;
 		/*file folder: ((this.legacySaveFileIndex == 0) ? "sav" : ("sav_" + (this.legacySaveFileIndex + 1).ToString()));
 		 or just
 
@@ -64,17 +81,23 @@ sealed class Plugin : BaseUnityPlugin
 		 
 		 */
 		On.RainWorld.OnModsInit += OnModsInit;
-		On.Player.Jump += Player_Jump;
 		On.ProcessManager.CueAchievement += ProcessManager_CueAchievement;
 		On.ProcessManager.Update += ProcessManager_Update;
 		On.ProcessManager.PostSwitchMainProcess += ProcessManager_PostSwitchMainProcess;
 
 		On.Menu.PauseMenu.ctor += PauseMenu_ctor;
 		On.Menu.PauseMenu.WarpSignal += PauseMenu_WarpSignal;
+		On.Menu.Menu.PlaySound_SoundID += Menu_PlaySound_SoundID;
 		On.Menu.MainMenu.ctor += MainMenu_ctor;
 		On.Menu.MainMenu.Singal += MainMenu_Singal;
 
 		On.RainWorld.AchievementAlreadyDisplayed += RainWorld_AchievementAlreadyDisplayed;
+	}
+
+	private void Menu_PlaySound_SoundID(On.Menu.Menu.orig_PlaySound_SoundID orig, Menu.Menu self, SoundID soundID)
+	{
+		if (self is PauseMenu && menu != null) return;
+		orig(self, soundID);
 	}
 
 	private void MainMenu_Singal(On.Menu.MainMenu.orig_Singal orig, MainMenu self, MenuObject sender, string message)
@@ -90,9 +113,9 @@ sealed class Plugin : BaseUnityPlugin
 	private void MainMenu_ctor(On.Menu.MainMenu.orig_ctor orig, MainMenu self, ProcessManager manager, bool showRegionSpecificBkg)
 	{
 		orig(self, manager, showRegionSpecificBkg);
-		SimpleButton button = new(self, self.pages[0], "Achievements", "OPENMENU", new Vector2(manager.rainWorld.options.ScreenSize.x / 2f - 55f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
+		SimpleButton button = new(self, self.pages[0], self.Translate("Achievements"), "OPENMENU", new Vector2(manager.rainWorld.options.ScreenSize.x / 2f - 55f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
 
-		self.AddMainMenuButton(button, ToMenu, 0);
+		self.AddMainMenuButton(button, ToMenu, 1);
 	}
 
 	private void ToMenu()
@@ -116,21 +139,15 @@ sealed class Plugin : BaseUnityPlugin
 	private void PauseMenu_ctor(On.Menu.PauseMenu.orig_ctor orig, PauseMenu self, ProcessManager manager, RainWorldGame game)
 	{
 		orig(self, manager, game);
-		SimpleButton button = new(self, self.pages[0], "Achievements", "SHOWACHIEVEMENTS", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
+		SimpleButton button = new(self, self.pages[0], self.Translate("Achievements"), "SHOWACHIEVEMENTS", new Vector2(manager.rainWorld.options.SafeScreenOffset.x + 15f, Mathf.Max(manager.rainWorld.options.SafeScreenOffset.y, 15f)), new Vector2(110f, 30f));
 		self.pages[0].subObjects.Add(button);
-	}
-
-	private void Player_Jump(On.Player.orig_Jump orig, Player self)
-	{
-		hud.AddAchievement(GiveRandomAchievement());
-		orig(self);
 	}
 
 	private void ProcessManager_PostSwitchMainProcess(On.ProcessManager.orig_PostSwitchMainProcess orig, ProcessManager self, Procid ID)
 	{
 		if (ID == CustomIds.loop)
 		{
-			self.currentMainLoop = new AchievementLoop(self);
+			self.currentMainLoop = new AchMenu(self, null);
 		}
 		orig(self, ID);
 		Debug.Log(ID.ToString());
@@ -163,11 +180,10 @@ sealed class Plugin : BaseUnityPlugin
 		}
 		//menu?.Update();
 		//menu?.GrafUpdate(deltaTime);
-
 		if (menu != null && menu.delete)
 		{
-			menu = null;
 			self.sideProcesses.Remove(menu);
+			menu = null;
 		}
 	}
 
@@ -194,6 +210,7 @@ sealed class Plugin : BaseUnityPlugin
 		CustomIds.Initialize();
 		Futile.atlasManager.LoadAtlas("atlases/allachievements");
 		Futile.atlasManager.LoadImage("atlases/god");
+		options = new(this, self.processManager);
 		achievements = new();
 		try
 		{
@@ -203,24 +220,23 @@ sealed class Plugin : BaseUnityPlugin
 		{
 			Debug.LogError("I really fucked up");
 		}
-		string path = Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
+		LoadAchievements();
+		// Initialize assets, your mod config, and anything that uses RainWorld here
+		if (!loadError)
 		{
-			Path.DirectorySeparatorChar.ToString(),
-			"UserData",
-			Path.DirectorySeparatorChar.ToString(),
-			"ahievementsTracker.txt"
-		}).ToLowerInvariant();
+			Logger.LogDebug("Achivement tracker initialized!");
+		}
+	}
+	private static void LoadAchievements()
+	{
+		achievements = new();
 		try
 		{
-			if (File.Exists(path))
+			if (!File.Exists(Filepath))
 			{
-
+				File.Create(Filepath);
 			}
-			else
-			{
-				File.Create(path);
-			}
-			string[] lines = File.ReadAllLines(path);
+			string[] lines = File.ReadAllLines(Filepath);
 			if (lines.Length > 0)
 			{
 				for (int i = 0; i < lines.Length; i++)
@@ -228,16 +244,19 @@ sealed class Plugin : BaseUnityPlugin
 					try
 					{
 						achievements.Add((Achid)Enum.Parse(typeof(Achid), lines[i].Trim()));
-					} catch (ArgumentException)
+					}
+					catch (ArgumentException)
 					{
 
 					}
 				}
 			}
 
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
-			switch (e) {
+			switch (e)
+			{
 				case UnauthorizedAccessException:
 					Debug.LogError("NO ACCESS TO FILES!!!");
 					break;
@@ -247,26 +266,47 @@ sealed class Plugin : BaseUnityPlugin
 			}
 			loadError = true;
 		}
-		// Initialize assets, your mod config, and anything that uses RainWorld here
-		if (!loadError)
-		{
-			Logger.LogDebug("Achivement tracker initialized!");
-		}
 	}
-	private void SaveAchievements()
+
+	public static void ClearAchievements()
 	{
-		string path = Custom.LegacyRootFolderDirectory() + string.Concat(new string[]
+		if (File.Exists(Filepath))
 		{
-			Path.DirectorySeparatorChar.ToString(),
-			"UserData",
-			Path.DirectorySeparatorChar.ToString(),
-			"ahievementsTracker.txt"
-		}).ToLowerInvariant();
+			try
+			{
+				File.Delete(Filepath);
+			} catch (UnauthorizedAccessException)
+			{
+				Debug.LogError("NO ACCESS TO FILES!!!");
+			} catch (DirectoryNotFoundException)
+			{
+				Debug.LogError("CANNOT FIND MOD DIRECTORY");
+			}
+		}
+		LoadAchievements();
+		
+	}
+	public static void SyncAchievements(ProcessManager self)
+	{
+		achievements = new();
+		for (int i = 0; i < CustomIds.achievementdata.Count; i++)
+		{
+			Achid id = CustomIds.achievementdata.Keys.ToList()[i];
+			if (self.mySteamManager.HasAchievement(id.ToString()))
+			{
+				achievements.Add(id);
+			}
+		}
+		SaveAchievements();
+	}
+
+	private static void SaveAchievements()
+	{
 		string[] text = new string[achievements.Count];
 		for (int i = 0; i < achievements.Count; i++)
 		{
 			text[i] = achievements[i].ToString();
 		}
-		File.WriteAllLines(path, text);
+		File.WriteAllLines(Filepath, text);
 	}
 }
