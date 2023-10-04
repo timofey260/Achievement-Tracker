@@ -5,7 +5,7 @@
   "authors": "timofey26, something6969",
   "target_game_version": "v1.9",
   "description": "Tracks your achievements and allows to reset them in rain world",
-  "tags": [],
+  "tags": ["Tools", "Accessibility"],
   "requirements": [],
   "requirements_names": [],
   "checksum_override_version": false

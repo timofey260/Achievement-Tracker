@@ -38,6 +38,7 @@ sealed class Plugin : BaseUnityPlugin
 		Procid.PauseMenu,
 		Procid.SleepScreen,
 		Procid.KarmaToMaxScreen,
+		Procid.GhostScreen
 
 	};
 
@@ -192,6 +193,7 @@ sealed class Plugin : BaseUnityPlugin
 		orig(self, ID, delay);
 		if (!achievements.Contains(ID))
 		{
+			self.rainWorld.PingAchievement(ID);
 			hud?.AddAchievement(ID);
 			achievements.Add(ID);
 		}
