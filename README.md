@@ -1,3 +1,5 @@
+Achievement tracker for rain world
+
 Use this template on GitHub or just [download the code](https://github.com/Dual-Iron/TestMod/archive/refs/heads/master.zip), whichever is easiest.
 
 Rename `src/TestMod.csproj`, then edit `assets/modinfo.json` and `src/Plugin.cs` to customize your mod.
